@@ -2015,9 +2015,9 @@ def test_exponential_symbols():
 
     assert solveset(x**x, x, S.Reals) == S.EmptySet
     assert solveset(x**y - 1, y, S.Reals) == FiniteSet(0)
-    assert solveset(exp(x/y)*exp(-z/y) - 2, y, S.Reals) == FiniteSet(
-        (x - z)/log(2)) - FiniteSet(0)
-
+    assert solveset(exp(x/y)*exp(-z/y) - 2, y, S.Reals) ==  \
+    Complement(ConditionSet(y, Eq(im(x)/y, 0) & Eq(im(z)/y, 0), \
+        Complement(Intersection(FiniteSet((x - z)/log(2)), S.Reals), FiniteSet(0))), FiniteSet(0))
     assert solveset_real(a**x - b**x, x) == ConditionSet(
         x, (a > 0) & (b > 0), FiniteSet(0))
     assert solveset(a**x - b**x, x) == ConditionSet(

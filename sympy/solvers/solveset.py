@@ -1434,13 +1434,11 @@ def _solve_exponential(lhs, rhs, symbol, domain):
     a_term = a.as_independent(symbol)[1]
     b_term = b.as_independent(symbol)[1]
 
-    if a_term.is_Pow:
+    try:
         a_base, a_exp = a_term.base, a_term.exp
-    else: # it's just for the sake of domain
-        a_base , a_exp = a_term , a_term
-    if b_term.is_Pow:
         b_base, b_exp = b_term.base, b_term.exp
-    else:
+    except AttributeError:
+        a_base , a_exp = a_term , a_term
         b_base , b_exp = b_term , b_term
 
     from sympy.functions.elementary.complexes import im
